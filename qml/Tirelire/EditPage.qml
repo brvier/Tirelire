@@ -7,7 +7,7 @@ Page {
     tools: editTools
     id: editPage
     property int uid: 0
-    property string moneyUnit: '€'
+    property string moneyUnit: py.getSetting('currencysymbol')
     property alias desc: descField.text
     property double date: 0
     property double amount: 0

@@ -291,6 +291,13 @@ Page {
                 }
             }
             MenuItem {
+                text: qsTr("Preferences");
+                onClicked: {
+                    var settingsPage = Qt.createComponent(Qt.resolvedUrl('SettingsPage.qml'))
+                    pageStack.push(settingsPage);
+                }
+            }
+            MenuItem {
                 text: qsTr("Order by Desc/Date");
                 onClicked: {
                     sectionCriteria = (sectionCriteria === "date") ? "desc" : "date";

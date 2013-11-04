@@ -27,6 +27,7 @@ import sqlite3
 from thread import get_ident
 import time
 import datetime
+from settings import Settings
 
 DBPATH = os.path.expanduser('~/.tirelire/tirelire.db')
 DATAPATH = os.path.expanduser('~/.tirelire/')
@@ -72,7 +73,7 @@ class ExpensesDB(object):
         return self._connection_cache[id]
 
 db = ExpensesDB(DBPATH)
-
+settings = Settings()
 
 def listExpenses(startDate, endDate):
     global db
@@ -88,18 +89,16 @@ def listExpenses(startDate, endDate):
                            'amount': amount}
             for uid, timestamp, desc, amount in curs.fetchall()]]
 
-'''
-def setSetting(section, option, value):
-    global settings
 
-    settings.set(section, option, value)
+def setSetting(option, value):
+    global settings
+    settings.set(option, value)
     return True
 
 
-def getSetting(section, option):
+def getSetting(option):
     global settings
-    return settings.get(section, option)
-'''
+    return settings.get(option)
 
 
 def rm(uid):
@@ -110,7 +109,7 @@ def rm(uid):
 
 
 def insertOrUpdate(uid, desc, amount, date):
-    #Convert date to timestamp at 12:00am for section
+    #Convert date to timestamp at 12:00am for section grouping
     ddate = datetime.datetime.fromtimestamp(date)
     ddate = ddate.replace(hour=12, minute=0, second=0, microsecond=0)
     date = time.mktime(ddate.timetuple())

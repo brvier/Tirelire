@@ -5,7 +5,7 @@ import net.khertan.python 1.0
 PageStackWindow {
     id: appWindow
 
-    property string version: '1.0.0'
+    property string version: '1.1.0'
     property string description: 'A fast, easy to use, and simple expenses tracker'
 
                                  + '<br><br>By Benoît HERVIER'
@@ -14,6 +14,7 @@ PageStackWindow {
                                  + '<br>Donate in Bitcoin : <a href="bitcoin://1Khertan7mpfbabM531QTsnDXBdK7sDYxL">1Khertan7mpfbabM531QTsnDXBdK7sDYxL</a>'
 
     property string changelogs: '<br><b>1.0.0 :</b><br>* Initial public release'
+                                + '<br><br><b>1.1.0 :</b><br>* Implement a settings for currency symbol as QLocale on Qt4.7 isn t perfect'
 
     initialPage: mainPage
 
@@ -55,6 +56,16 @@ PageStackWindow {
             var total = call('tirelire.getTotal', []);
         }
 
+        function getSetting(option) {
+            var value = call('tirelire.getSetting', [option]);
+            return value;
+        }
+
+        function setSetting(option, value) {
+            if (call('tirelire.setSetting', [option, value]));
+                requireRefresh();
+        }
+
         onMessage: {
             total = data[0]
         }
@@ -89,7 +100,7 @@ PageStackWindow {
         decPart = (decPart + '00').substr(0,2);
 
 
-        return intPart + DecimalSeparator + decPart;
+        return intPart + DecimalSeparator + decPart + " " + py.getSetting('currencysymbol');
     }
 
 

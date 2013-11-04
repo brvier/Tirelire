@@ -6,7 +6,7 @@ Rectangle {
 
     property alias title: headerlabel.text
     property real solde: py.total / 100
-    property string moneyUnit: '€'
+    property bool showSolde: true
 
     anchors.top: parent.top
     width:parent.width
@@ -32,9 +32,12 @@ Rectangle {
         id: soldeLabel
         font { bold: false; family: "Nokia Pure Text"; pixelSize: 36; }
         color: solde > 0.0 ? "white" : "red";
-        text: formatMoney(solde) + ' ' + moneyUnit
+        text: formatMoney(solde)
         anchors.right: header.right
         anchors.rightMargin: 20
         anchors.verticalCenter: header.verticalCenter
+        opacity: showSolde ? 1.0 : 0.0
+        visible: showSolde
+
     }
 }
