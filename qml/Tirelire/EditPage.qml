@@ -198,13 +198,13 @@ Page {
             text:'6'
         }
         BigThreateningRedButton {
-            text:'3'
+            text:'1'
         }
         BigThreateningRedButton {
             text:'2'
         }
         BigThreateningRedButton {
-            text:'1'
+            text:'3'
         }
         BigThreateningRedButton {
             text:'00'
